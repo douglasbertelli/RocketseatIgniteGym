@@ -7,9 +7,10 @@ import {
   ScrollView,
 } from "@gluestack-ui/themed";
 
+import { Input } from "@components/Input";
+
 import BackgroundImg from "@assets/background.png";
 import Logo from "@assets/logo.svg";
-import { Input } from "@components/Input";
 import Button from "@components/Button";
 
 import { useNavigation } from "@react-navigation/native";

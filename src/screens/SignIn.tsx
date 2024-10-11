@@ -3,6 +3,7 @@ import { VStack, Text, Image, Center, Heading } from "@gluestack-ui/themed";
 import BackgroundImg from "@assets/background.png";
 import Logo from "@assets/logo.svg";
 import { Input } from "@components/Input";
+import Button from "@components/Button";
 
 export default function SignIn() {
   return (
@@ -29,10 +30,16 @@ export default function SignIn() {
             keyboardType="email-address"
             autoCapitalize="none"
           />
-          <Input
-            placeholder="Senha"
-            secureTextEntry
-          />
+          <Input placeholder="Senha" autoCapitalize="none" secureTextEntry />
+          <Button title="Acessar" />
+        </Center>
+
+        <Center flex={1} justifyContent="flex-end" mt="$4">
+          <Text color="$gray100" fontSize={"$sm"} mb="$3" fontFamily="$body">
+            Ainda não tem acesso?
+          </Text>
+
+          <Button title="Criar conta" variant="outline"/>
         </Center>
       </VStack>
     </VStack>

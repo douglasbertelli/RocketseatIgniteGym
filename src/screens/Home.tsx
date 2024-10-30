@@ -3,6 +3,8 @@ import { FlatList, Heading, HStack, VStack, Text } from "@gluestack-ui/themed";
 import { HomeHeader } from "@components/HomeHeader";
 import { Group } from "@components/Group";
 import { ExerciseCard } from "@components/ExerciseCard";
+import { useNavigation } from "@react-navigation/native";
+import { AppNavigatorRoutesProps } from "@routes/app.routes";
 
 export function Home() {
   const [exercises, setExercises] = useState([
@@ -21,6 +23,14 @@ export function Home() {
     "Perna",
   ]);
   const [groupSelected, setGroupSelected] = useState(groups[0]);
+
+  /* Navegação entre telas:  */
+  const navigation = useNavigation<AppNavigatorRoutesProps>()
+
+
+  function handleOpenExerciseDetails() {
+    navigation.navigate('exercise')
+  }
 
   return (
     <VStack flex={1}>
@@ -57,7 +67,7 @@ export function Home() {
           keyExtractor={(item) => item}
           showsVerticalScrollIndicator={false}
           contentContainerStyle={{paddingBottom: 20}}
-          renderItem={() => <ExerciseCard />}
+          renderItem={() => <ExerciseCard onPress={handleOpenExerciseDetails} />}
         />
       </VStack>
     </VStack>

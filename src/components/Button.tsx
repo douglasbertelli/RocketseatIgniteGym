@@ -11,7 +11,7 @@ type Props = ComponentProps<typeof GluestackButton> & {
   isLoading?: boolean;
 };
 
-export default function Button({
+export function Button({
   title,
   variant = "solid",
   isLoading = false,

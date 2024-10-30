@@ -1,12 +1,40 @@
-import React from 'react';
-import { Center, Heading, Text, VStack } from '@gluestack-ui/themed'
+import React, { useState } from 'react';
 import ScreenHeader from '@components/ScreenHeader';
+
+import { Center, Heading, Text, VStack } from '@gluestack-ui/themed'
 import { ScrollView, TouchableOpacity } from 'react-native';
+
+import { Button } from '@components/Button';
 import { UserPhoto } from '@components/UserPhoto';
 import { Input } from '@components/Input';
-import Button from '@components/Button';
+
+import * as ImagePicker from 'expo-image-picker'
 
 export function Profile() {
+  const [userPhoto, setUserPhoto] = useState('https:github.com/douglasbertelli.png')
+
+  async function handleUserPhotoSelect() {
+    const photoSelected = await ImagePicker.launchImageLibraryAsync({
+      /* Tipo de arquivo */
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      /* Qualidade da imagem */
+      quality: 1,
+      /* Enquadramento */
+      aspect: [4,4],
+      /* Pré Editor de imagem */
+      allowsEditing: true,
+    })
+
+    /* Se o usuário cancelar a seleção da imagem, mata a função aqui. */
+    if(photoSelected.canceled) {
+      return
+    }
+
+    /* Enviando para o estado a imagem que foi selecionada. */
+    setUserPhoto(photoSelected.assets[0].uri)
+
+  }
+
   return (
     <VStack flex={1}>
       <ScreenHeader
@@ -21,13 +49,13 @@ export function Profile() {
         <Center mt={'$6'} px={'$6'}>
           <UserPhoto
             source={{
-              uri: 'https:github.com/douglasbertelli.png'
+              uri: userPhoto
             }}
             alt='Foto de perfil do usuário'
             size='lg'
           />
 
-          <TouchableOpacity>
+          <TouchableOpacity onPress={handleUserPhotoSelect}>
             <Text color='$green500' fontFamily='$heading' fontSize={'$md'} mt={'$2'} mb={'$8'}>Alterar foto</Text>
           </TouchableOpacity>
 
@@ -66,7 +94,7 @@ export function Profile() {
               secureTextEntry
             />
 
-            <Button title='Atualizar'/>
+            <Button title='Atualizar' />
           </Center>
 
         </Center>
